@@ -20,14 +20,15 @@ public class TarefaDAO {
 	public void cadastrar(Tarefa tarefa) {
 			
 		String inserir = "INSERT INTO tarefas "
-				+ " (titulo, descricao)"
-				+ " VALUES (?, ?)";
+				+ " (titulo, descricao, fk_usuario_email)"
+				+ " VALUES (?, ?, ?)";
 		
 		try ( PreparedStatement pst = 
 				conexao.prepareStatement(inserir) ) {
 			
 			pst.setString(1, tarefa.getTitulo());			
 			pst.setString(2, tarefa.getTexto());
+			pst.setString(3, tarefa.getFkUsuario());
 			pst.execute();
 			
 		} catch (SQLException ex) {
@@ -93,8 +94,9 @@ public class TarefaDAO {
 			List<Tarefa> lista = new ArrayList<>();
 			while (resultado.next()) {
 				Tarefa tarefas = new Tarefa();
-				tarefa.setTexto(resultado.getString("descricao"));
-				tarefa.setTitulo(resultado.getString("titulo"));
+				tarefas.setTexto(resultado.getString("descricao"));
+				tarefas.setTitulo(resultado.getString("titulo"));
+				tarefas.setId(resultado.getLong("id"));
 				lista.add(tarefas);
 			}
 			return lista;	

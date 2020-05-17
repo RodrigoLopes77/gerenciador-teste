@@ -11,25 +11,9 @@ import javax.servlet.http.HttpSession;
 import model.Usuario;
 import service.UsuarioService;
 
-/**
- * Servlet implementation class Login
- */
 @WebServlet("/Login.do")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Login() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -42,7 +26,8 @@ public class Login extends HttpServlet {
 
 		if (!nomeUsuario.isEmpty()) {
 			HttpSession sessao = request.getSession();
-			sessao.setAttribute("usuario", "u");
+			sessao.setAttribute("usuario", nomeUsuario);
+			sessao.setAttribute("email", usuario.getEmail());
 			response.sendRedirect("tasks.jsp");
 		} else {
 			HttpSession sessao = request.getSession();
